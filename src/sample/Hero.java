@@ -1,12 +1,19 @@
 package sample;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -14,6 +21,7 @@ import java.io.File;
 public class Hero extends Pane {
     public HeroAnimation animation;
     public Point2D movement = new Point2D(0, 0);
+    public Label counter;
     Image heroImage = new Image("resources/mario.png");
     ImageView imageView = new ImageView(heroImage);
     int frames = 3;
@@ -53,6 +61,9 @@ public class Hero extends Pane {
             }
             this.setTranslateX(this.getTranslateX() + (movingRight ? 1 : -1));
             isCoinPickedUp();
+            if (Main.score == Main.maxScore) {
+                areAllCoinsPickedUp();
+            }
         }
     }
 
@@ -83,6 +94,9 @@ public class Hero extends Pane {
                 Main.game.setLayoutX(0);
             }
             isCoinPickedUp();
+            if (Main.score == Main.maxScore) {
+                areAllCoinsPickedUp();
+            }
         }
     }
 
@@ -96,12 +110,47 @@ public class Hero extends Pane {
                 mediaPlayer.play();
                 Main.mediaBackgroundPlayer.play();
                 deadCoin = coin;
+                Main.game.getChildren().remove(counter);
                 Main.score++;
+                counter = getCounter(Main.score);
+                Main.game.getChildren().add(counter);
+                counter.translateXProperty().addListener((obs, old, newValue) -> {
+                    int offset = newValue.intValue();
+                    if (offset > 640 && offset < Main.widthOfLevel - 640) {
+                        Main.game.setLayoutX(-(offset - 640));
+                    }
+                });
             }
         });
         Main.coins.remove(deadCoin);
         Main.textures.remove(deadCoin);
         Main.game.getChildren().remove(deadCoin);
+    }
+
+    public void areAllCoinsPickedUp() {
+        Stage alertWindow = new Stage();
+        alertWindow.initModality(Modality.APPLICATION_MODAL);
+        alertWindow.setTitle("Конец игры");
+        alertWindow.setMinHeight(200);
+        alertWindow.setMinWidth(300);
+        Label winInfo = new Label("Ты победил!");
+        Button closeButton = new Button("Закрыть");
+        closeButton.setOnAction(e -> System.exit(0));
+        VBox alert = new VBox();
+        alert.getChildren().addAll(winInfo, closeButton);
+        alert.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(alert);
+        alertWindow.setScene(scene);
+        Main.timer.stop();
+        alertWindow.show();
+    }
+
+    public Label getCounter(int score) {
+        String scoreString = score + "/" + Main.maxScore;
+        Label scoreLabel = new Label(scoreString);
+        scoreLabel.setTranslateX(30);
+        scoreLabel.setTranslateY(50);
+        return scoreLabel;
     }
 
     public void jump() {

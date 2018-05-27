@@ -2,13 +2,11 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -34,7 +32,8 @@ public class Main extends Application {
     public Hero luigi;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Image backgroundImage = new Image("resources/background.png");
-    private int widthOfLevel;
+    public static int widthOfLevel;
+    public static AnimationTimer timer;
 
     public static void main(String[] args) {
         launch(args);
@@ -44,6 +43,10 @@ public class Main extends Application {
         ImageView backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.setFitWidth(212 * unitSize);
         backgroundImageView.setFitHeight(14 * unitSize);
+        Label rule = new Label("Collect all the coins for victory!!!");
+        rule.setTranslateX(30);
+        rule.setTranslateY(30);
+        game.getChildren().add(rule);
         widthOfLevel = DataOfLevel.levelData[0].length() * unitSize;
         for (int i = 0; i < DataOfLevel.levelData.length; i++) {
             String string = DataOfLevel.levelData[i];
@@ -117,29 +120,11 @@ public class Main extends Application {
         return keys.getOrDefault(key, false);
     }
 
-    public Label getCounter(int score) {
-        String scoreString = score + "/" + Main.maxScore;
-        Label scoreLabel = new Label(scoreString);
-        scoreLabel.setTranslateX(30);
-        scoreLabel.setTranslateY(30);
-        return scoreLabel;
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         drawTheMap();
-        Label counter = getCounter(score);
-        //counter.textProperty().bind();
-        counter.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (maxScore - score < maxScore) {
-
-                }
-            }
-        });
-        game.getChildren().add(counter);
         mediaBackgroundPlayer.setVolume(0.3);
+        mediaBackgroundPlayer.setCycleCount(100);
         mediaBackgroundPlayer.play();
         Scene scene = new Scene(app, 1200, 620);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
@@ -150,7 +135,7 @@ public class Main extends Application {
         primaryStage.setTitle("Platformer game");
         primaryStage.setScene(scene);
         primaryStage.show();
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
