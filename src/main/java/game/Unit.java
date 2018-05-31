@@ -1,14 +1,13 @@
-package sample;
+package game;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 
 public class Unit extends Pane {
-    Image unitImage = new Image("resources/texture.png");
+    Image unitImage = new Image("texture.png");
     ImageView unit;
     public enum UnitType {
         FLOOR, PLATFORM, COIN, TOP_OF_PIPE, BOTTOM_OF_PIPE, INVISIBLE_UNIT, STONE

@@ -19,7 +19,7 @@
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
         <plugins>
 
             <plugin>
@@ -60,7 +60,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>sample.Main</mainClass>
+                            <mainClass></mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

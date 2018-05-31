@@ -1,5 +1,8 @@
-package sample;
+package game;
 
+import game.HeroAnimation;
+import game.Main;
+import game.Unit;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -22,7 +25,7 @@ public class Hero extends Pane {
     public HeroAnimation animation;
     public Point2D movement = new Point2D(0, 0);
     public Label counter;
-    Image heroImage = new Image("resources/mario.png");
+    Image heroImage = new Image("mario.png");
     ImageView imageView = new ImageView(heroImage);
     int frames = 3;
     int xOffset = 96;
@@ -103,7 +106,7 @@ public class Hero extends Pane {
     public void isCoinPickedUp() {
         Main.coins.forEach((coin) -> {
             if (this.getBoundsInParent().intersects(coin.getBoundsInParent())) {
-                String takeSound = "C:/Users/-/IdeaProjects/game/src/resources/coin.mp3";
+                String takeSound = "C:/Users/-/IdeaProjects/game/src/main/resources/coin.mp3";
                 Media sound = new Media(new File(takeSound).toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 Main.mediaBackgroundPlayer.pause();

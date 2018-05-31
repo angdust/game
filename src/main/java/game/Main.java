@@ -1,5 +1,6 @@
-package sample;
+package game;
 
+import game.Unit;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,12 +29,12 @@ public class Main extends Application {
     public static int maxScore = 0;
     public static int widthOfLevel;
     public static AnimationTimer timer;
-    private static String takeBackgroundSound = "C:/Users/-/IdeaProjects/game/src/resources/backgroundSound.mp3";
+    private static String takeBackgroundSound = "C:/Users/-/IdeaProjects/game/src/main/resources/backgroundSound.mp3";
     private static Media backgroundSound = new Media(new File(takeBackgroundSound).toURI().toString());
     public static MediaPlayer mediaBackgroundPlayer = new MediaPlayer(backgroundSound);
     public Hero luigi;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
-    private Image backgroundImage = new Image("resources/background.png");
+    private Image backgroundImage = new Image("background.png");
     private Pane counter = new Pane();
 
     public static void main(String[] args) {
