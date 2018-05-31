@@ -22,7 +22,6 @@ public class Main extends Application {
     public static final int heroSize = 40;
     public static Pane app = new Pane();
     public static Pane game = new Pane();
-    public static Pane counter = new Pane();
     public static ArrayList<Unit> textures = new ArrayList<>();
     public static ArrayList<Unit> coins = new ArrayList<>();
     public static int score = 0;
@@ -35,6 +34,7 @@ public class Main extends Application {
     public Hero luigi;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Image backgroundImage = new Image("resources/background.png");
+    private Pane counter = new Pane();
 
     public static void main(String[] args) {
         launch(args);
