@@ -22,18 +22,19 @@ public class Main extends Application {
     public static final int heroSize = 40;
     public static Pane app = new Pane();
     public static Pane game = new Pane();
+    public static Pane counter = new Pane();
     public static ArrayList<Unit> textures = new ArrayList<>();
     public static ArrayList<Unit> coins = new ArrayList<>();
     public static int score = 0;
     public static int maxScore = 0;
+    public static int widthOfLevel;
+    public static AnimationTimer timer;
     private static String takeBackgroundSound = "C:/Users/-/IdeaProjects/game/src/resources/backgroundSound.mp3";
     private static Media backgroundSound = new Media(new File(takeBackgroundSound).toURI().toString());
     public static MediaPlayer mediaBackgroundPlayer = new MediaPlayer(backgroundSound);
     public Hero luigi;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Image backgroundImage = new Image("resources/background.png");
-    public static int widthOfLevel;
-    public static AnimationTimer timer;
 
     public static void main(String[] args) {
         launch(args);
@@ -46,7 +47,7 @@ public class Main extends Application {
         Label rule = new Label("Collect all the coins for victory!!!");
         rule.setTranslateX(30);
         rule.setTranslateY(30);
-        game.getChildren().add(rule);
+        counter.getChildren().add(rule);
         widthOfLevel = DataOfLevel.levelData[0].length() * unitSize;
         for (int i = 0; i < DataOfLevel.levelData.length; i++) {
             String string = DataOfLevel.levelData[i];
@@ -93,6 +94,7 @@ public class Main extends Application {
         game.getChildren().add(luigi);
 
         app.getChildren().addAll(backgroundImageView, game);
+        app.getChildren().addAll(counter);
         maxScore = coins.size();
     }
 

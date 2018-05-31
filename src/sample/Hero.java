@@ -110,10 +110,10 @@ public class Hero extends Pane {
                 mediaPlayer.play();
                 Main.mediaBackgroundPlayer.play();
                 deadCoin = coin;
-                Main.game.getChildren().remove(counter);
+                Main.counter.getChildren().remove(counter);
                 Main.score++;
                 counter = getCounter(Main.score);
-                Main.game.getChildren().add(counter);
+                Main.counter.getChildren().add(counter);
                 counter.translateXProperty().addListener((obs, old, newValue) -> {
                     int offset = newValue.intValue();
                     if (offset > 640 && offset < Main.widthOfLevel - 640) {
