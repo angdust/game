@@ -1,8 +1,5 @@
 package game;
 
-import game.HeroAnimation;
-import game.Main;
-import game.Unit;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -117,12 +114,6 @@ public class Hero extends Pane {
                 Main.score++;
                 counter = getCounter(Main.score);
                 Main.app.getChildren().add(counter);
-                counter.translateXProperty().addListener((obs, old, newValue) -> {
-                    int offset = newValue.intValue();
-                    if (offset > 640 && offset < Main.widthOfLevel - 640) {
-                        Main.game.setLayoutX(-(offset - 640));
-                    }
-                });
             }
         });
         Main.coins.remove(deadCoin);
